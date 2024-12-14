@@ -1,0 +1,25 @@
+{
+  "name": "eh-manager",
+  "version": "1.0.0",
+  "description": "Install, update and manage ECP-EHM and other related services",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EpicLabs23/eh-manager.git"
+  },
+  "keywords": [
+    "ecp",
+    "ehm",
+    "install",
+    "update"
+  ],
+  "author": "Mahmudur Rahman",
+  "license": "SEE LICENSE IN lcense.md",
+  "bugs": {
+    "url": "https://github.com/EpicLabs23/eh-manager/issues"
+  },
+  "homepage": "https://github.com/EpicLabs23/eh-manager#readme"
+}
