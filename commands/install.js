@@ -3,11 +3,11 @@ import { getPromptAnswers, getInstallVersion, getPromptOsVersion, getMysqlRootPa
 import { exit } from 'process';
 
 export const installCommand = async (options) => {
-    const version = await getInstallVersion().then(res => res.version);
-    // const version = options.version ? options.version : await getInstallVersion().version;
-    const mysqlRootPassword = options.password || await getMysqlRootPassword().mysqlRootPassword;
-    const apiPublicUrl = options.url || await getApiPublicUrl().apiPublicUrl;
-    const os = options.os || await getPromptOsVersion().osVersion;
+    // const version = await getInstallVersion().then(res => res.version);
+    const version = options.version ? options.version : await getInstallVersion().then(res => res.version);
+    const mysqlRootPassword = options.password || await getMysqlRootPassword().then(res => res.mysqlRootPassword);
+    const apiPublicUrl = options.url || await getApiPublicUrl().then(res => res.apiPublicUrl);
+    const os = options.os || await getPromptOsVersion().then(res => res.osVersion);
     const answers = {
         version,
         mysqlRootPassword,
@@ -15,7 +15,7 @@ export const installCommand = async (options) => {
         os
     };
 
-    console.log(`Installing version ${version}...`);
-    exit(0);
+    // console.log(`Installing version ${version}...`);
+    // exit(0);
     await performInstall(answers);
 };
