@@ -14,9 +14,9 @@ program
   .command('install')
   .description('Install a new version of EHM')
   .option('-v, --version <version>', 'Specify the version to install')
-  .option('-p, --password <password>', 'MySQL root password')
-  .option('-u, --url <url>', 'EHM API public URL')
-  .option('--os <url>', 'System Ubuntu version (e.g., 24.04)')
+  .option('--dbpass <dbpass>', 'MySQL root password')
+  .option('--apiurl <apiurl>', 'EHM API public URL')
+  .option('--os <os>', 'System Ubuntu version (e.g., 24.04)')
   .action(installCommand);
 
 program
