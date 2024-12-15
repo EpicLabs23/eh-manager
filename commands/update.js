@@ -12,8 +12,6 @@ export const updateCommand = async (options) => {
   //parse the current .env file using dotenv
   const current_env = dotenv.config({ path: current_env_file });
   const current_env_vars = current_env.parsed;
-  // console.log(current_env_vars.MYSQL_ROOT_PASSWORD);
-
 
   const currentVersion = options.currentversion || current_eh_version || await getInstallVersion().then(res => res.version);
   const newVersion = options.newversion || await getInstallVersion().then(res => res.version);
