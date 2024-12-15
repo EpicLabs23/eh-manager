@@ -29,4 +29,20 @@ program
   .option('--os <os>', 'System Ubuntu version (e.g., 24.04)')
   .action(updateCommand);
 
+// Handling Exit
+process.on('SIGINT', () => {
+  console.log('\nInterrupted. Exiting gracefully...');
+  process.exit(0);
+});
+
+process.on('exit', (code) => {
+  console.log(`Exiting with code ${code}`);
+});
+
+process.on('uncaughtException', (err) => {
+  // console.error('Uncaught Exception:', err);
+  process.exit(1);
+});
+
+
 program.parse(process.argv);
