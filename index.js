@@ -22,7 +22,11 @@ program
 program
   .command('update')
   .description('Update an existing version of EHM')
-  .requiredOption('-v, --version <version>', 'Specify the version to update')
+  .option('--cv, --currentversion <currentversion>', 'Specify the current version')
+  .option('--nv, --newversion <version>', 'Specify the new version to install')
+  .option('--dbpass <dbpass>', 'MySQL root password')
+  .option('--apiurl <apiurl>', 'EHM API public URL')
+  .option('--os <os>', 'System Ubuntu version (e.g., 24.04)')
   .action(updateCommand);
 
 program.parse(process.argv);
