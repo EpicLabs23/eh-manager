@@ -1,33 +1,43 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { installCommand } from './commands/install.js';
-import { updateCommand } from './commands/update.js';
+import { installEhmCommand } from './commands/install-ehm.js';
+import { updateEhmCommand } from './commands/update-ehm.js';
+import { installEpicBackupCommand } from './commands/install-epic-backup.js';
 
 const program = new Command();
 
 program
-  .name('eh-manager')
+  .name('epic')
   .description('Command-line manager for EHM');
 
+// EHM Commands
 program
-  .command('install')
+  .command('install-ehm')
   .description('Install a new version of EHM')
   .option('-v, --version <version>', 'Specify the version to install')
   .option('--dbpass <dbpass>', 'MySQL root password')
   .option('--apiurl <apiurl>', 'EHM API public URL')
   .option('--os <os>', 'System Ubuntu version (e.g., 24.04)')
-  .action(installCommand);
+  .action(installEhmCommand);
 
 program
-  .command('update')
+  .command('update-ehm')
   .description('Update an existing version of EHM')
   .option('--cv, --currentversion <currentversion>', 'Specify the current version')
   .option('--nv, --newversion <newversion>', 'Specify the new version to install')
   .option('--dbpass <dbpass>', 'MySQL root password')
   .option('--apiurl <apiurl>', 'EHM API public URL')
   .option('--os <os>', 'System Ubuntu version (e.g., 24.04)')
-  .action(updateCommand);
+  .action(updateEhmCommand);
+
+// Epic Backup Commands
+program
+  .command('install-epic-backup')
+  .description('Install a new version of epic-backup')
+  .option('--version <version>', 'Specify the version to install')
+  .option('--apiurl <apiurl>', 'EHM API public URL')
+  .action(installEpicBackupCommand);
 
 // Handling Exit
 process.on('SIGINT', () => {

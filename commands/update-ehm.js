@@ -1,10 +1,10 @@
-import { performUpdate } from '../lib/updater.js';
+import { performEhmUpdate } from '../lib/ehm-updater.js';
 import Conf from 'conf';
 import dotenv from 'dotenv';
 import path from 'path';
 import { getNewVersion, getCurrentVersion, getPromptOsVersion, getMysqlRootPassword, getApiPublicUrl } from '../lib/prompts.js';
 
-export const updateCommand = async (options) => {
+export const updateEhmCommand = async (options) => {
   const config = new Conf({ projectName: 'eh_manager' });
   const targetDir = '/epiclabs23/eh/ehm';
   const current_eh_version = config.get('current_eh_version');
@@ -27,5 +27,5 @@ export const updateCommand = async (options) => {
     os
   };
 
-  await performUpdate(answers);
+  await performEhmUpdate(answers);
 };

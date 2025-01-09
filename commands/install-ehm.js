@@ -1,7 +1,7 @@
-import { performInstall } from '../lib/installer.js';
+import { performEhmInstall } from '../lib/ehm-installer.js';
 import { getInstallVersion, getPromptOsVersion, getMysqlRootPassword, getApiPublicUrl } from '../lib/prompts.js';
 
-export const installCommand = async (options) => {
+export const installEhmCommand = async (options) => {
     const version = options.version ? options.version : await getInstallVersion().then(res => res.version);
     const mysqlRootPassword = options.dbpass || await getMysqlRootPassword().then(res => res.mysqlRootPassword);
     const apiPublicUrl = options.apiurl || await getApiPublicUrl().then(res => res.apiPublicUrl);
@@ -13,5 +13,5 @@ export const installCommand = async (options) => {
         os
     };
 
-    await performInstall(answers);
+    await performEhmInstall(answers);
 };
