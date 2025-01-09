@@ -18,6 +18,7 @@ export const installEpicBackupCommand = async (options) => {
     const answers = {
         version,
         apiPublicUrl,
+        targetDir: options.targetDir
     };
 
     await performEpicBackupInstall(answers);

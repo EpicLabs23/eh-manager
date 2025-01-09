@@ -37,6 +37,7 @@ program
   .description('Install a new version of epic-backup')
   .option('--version <version>', 'Specify the version to install')
   .option('--apiurl <apiurl>', 'EHM API public URL')
+  .option('--targetDir <targetDir>', 'Installation directory. default is /epiclabs23/eh/epic-backup')
   .action(installEpicBackupCommand);
 
 // Handling Exit
