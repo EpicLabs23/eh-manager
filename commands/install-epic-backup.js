@@ -1,4 +1,5 @@
 import { performEpicBackupInstall } from '../lib/epic-backup-installer.js';
+import { installEpicBackupSystemDependecy } from './install-epic-backup-system-dependecy.js';
 import inquirer from 'inquirer';
 
 export const installEpicBackupCommand = async (options) => {
@@ -21,5 +22,16 @@ export const installEpicBackupCommand = async (options) => {
         targetDir: options.targetDir
     };
 
+    
+    const installDependecy = await inquirer.prompt({
+        type: 'confirm',
+        name: 'installDependecy',
+        message: 'Install required system dependecies?',
+    }).then(res => res.installDependecy);
+
+    if (installDependecy) {
+        await installEpicBackupSystemDependecy();
+    }
+    
     await performEpicBackupInstall(answers);
 };
