@@ -1,8 +1,4 @@
-import fs from 'fs';
-import path from 'path';
-import axios from 'axios';
 import ora from 'ora';
-import * as tar from 'tar';
 import { execSync } from 'child_process';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
