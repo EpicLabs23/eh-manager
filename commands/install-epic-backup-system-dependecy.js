@@ -17,7 +17,7 @@ export const installEpicBackupSystemDependecy = async () => {
         const rcloneVersion = execSync('rclone --version').toString().trim();
         if (!rcloneVersion.includes('rclone v')) {
             spinner.text = `Installing rClone...`;
-            execSync('sudo -v; curl https://rclone.org/install.sh | sudo bash', { stdio: 'inherit' });
+            execSync('curl https://rclone.org/install.sh | sudo bash', { stdio: 'inherit' });
             spinner.succeed(`Installing rClone completed successfully.`);
         }else{
             spinner.succeed(`rClone already installed.`);
@@ -73,11 +73,11 @@ export const installEpicBackupSystemDependecy = async () => {
         ]);
         if (shouldInstallPgDump.shouldInstall) {
             spinner.text = `Installing pg_dump...`;
-            execSync('sudo apt-get install postgresql-client -y', { stdio: 'inherit' });
+            execSync('apt-get install postgresql-client -y', { stdio: 'inherit' });
             spinner.succeed(`Installing pg_dump... completed successfully.`);
         }
 
-        spinner.succeed(`Installation of ${version} completed successfully.`);
+        spinner.succeed(`System dependecy installation completed successfully.`);
     } catch (error) {
         spinner.fail(chalk.red(`Error: ${error.message}`));
         process.exit(1);

@@ -9,16 +9,16 @@ export const installEpicBackupCommand = async (options) => {
         message: 'Enter Epic Backup version (e.g., 0.0.3):',
     }).then(res => res.version);
     
-    const apiPublicUrl = options.apiurl || await inquirer.prompt({
+    const apiurl = options.apiurl || await inquirer.prompt({
         type: 'input',
-        name: 'apiPublicUrl',
+        name: 'apiurl',
         message: 'Enter the Epic Backup API public URL (e.g., http://eb.epiclabs23.com:2333):',
         validate: input => input ? true : 'URL cannot be empty.'
-    }).then(res => res.apiPublicUrl);
+    }).then(res => res.apiurl);
 
     const answers = {
         version,
-        apiPublicUrl,
+        apiurl,
         targetDir: options.targetDir
     };
 
