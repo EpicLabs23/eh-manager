@@ -4,6 +4,7 @@ import { Command } from 'commander';
 import { installEhmCommand } from './commands/install-ehm.js';
 import { updateEhmCommand } from './commands/update-ehm.js';
 import { installEpicBackupCommand } from './commands/install-epic-backup.js';
+import { updateEpicBackupCommand } from './commands/update-epic-backup.js';
 
 const program = new Command();
 
@@ -39,6 +40,14 @@ program
   .option('--apiurl <apiurl>', 'EHM API public URL')
   .option('--targetDir <targetDir>', 'Installation directory. default is /epiclabs23/eh/epic-backup')
   .action(installEpicBackupCommand);
+
+  program
+  .command('update-epic-backup')
+  .description('Update existing version of epic-backup')
+  .option('--cv, --currentversion <currentversion>', 'Specify the current version')
+  .option('--apiurl <apiurl>', 'EHM API public URL')
+  .option('--targetDir <targetDir>', 'Installation directory. default is /epiclabs23/eh/epic-backup')
+  .action(updateEpicBackupCommand);
 
 // Handling Exit
 process.on('SIGINT', () => {
