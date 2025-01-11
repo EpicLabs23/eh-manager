@@ -1,11 +1,10 @@
-import { performEhmUpdate } from '../lib/ehm-updater.js';
 import Conf from 'conf';
 import dotenv from 'dotenv';
 import path from 'path';
-import performEpicBackupUpdate from '../lib/epic-backup-updater.js';
+import {performEpicBackupUpdate} from '../lib/epic-backup-updater.js';
 import inquirer from 'inquirer';
 
-export const updateEhmCommand = async (options) => {
+export const updateEpicBackupCommand = async (options) => {
     const config = new Conf({ projectName: 'eh_manager' });
     //   const targetDir = '/epiclabs23/eh/ehm';
     targetDir = targetDir || '/epiclabs23/eh/epic-backup';
