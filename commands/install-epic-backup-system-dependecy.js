@@ -10,13 +10,33 @@ export const installEpicBackupSystemDependecy = async () => {
     try {
 
         // Install rclone
-        const rcloneVersion = execSync('rclone --version').toString().trim();
+        let rcloneVersion = '';
+        try {
+            rcloneVersion = execSync('rclone --version').toString().trim();
+        } catch (error) {
+            spinner.info(`rclone not found. Installaing rclone...`);
+        }
         if (!rcloneVersion.includes('rclone v')) {
             spinner.text = `Installing rClone...`;
             execSync('curl https://rclone.org/install.sh | sudo bash', { stdio: 'inherit' });
             spinner.succeed(`Installing rClone completed successfully.`);
         }else{
             spinner.succeed(`rClone already installed.`);
+        }
+
+        // Install pm2
+        let pm2Version = '';
+        try {
+            pm2Version = execSync('pm2 --version').toString().trim();
+        } catch (error) {
+            spinner.info(`pm2 not found. Installaing pm2...`);
+        }
+        if (!pm2Version.includes('pm2@')) {
+            spinner.text = `Installing pm2...`;
+            execSync('npm install pm2 -g', { stdio: 'inherit' });
+            spinner.succeed(`Installing pm2 completed successfully.`);
+        }else{
+            spinner.succeed(`pm2 already installed.`);
         }
 
         // Run rclone daemon
