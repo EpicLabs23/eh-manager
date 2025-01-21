@@ -39,6 +39,12 @@ export const installEpicBackupSystemDependecy = async () => {
             spinner.succeed(`pm2 already installed.`);
         }
 
+        // npm install -g serve
+        spinner.text = `Installing serve...`;
+        execSync('npm install -g serve', { stdio: 'inherit' });
+        spinner.succeed(`Installing serve completed successfully.`);
+
+
         // Run rclone daemon
         const processListJson = execSync(`pm2 jlist`, { stdio: 'pipe' }).toString();
         const processList = JSON.parse(processListJson);
