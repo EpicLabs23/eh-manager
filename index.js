@@ -40,13 +40,14 @@ program
   .option('--apiurl <apiurl>', 'EHM API public URL')
   .option('--targetDir <targetDir>', 'Installation directory. default is /epiclabs23/eh/epic-backup')
   .action(installEpicBackupCommand);
-
+  
   program
   .command('update-epic-backup')
   .description('Update existing version of epic-backup')
   .option('--cv, --currentversion <currentversion>', 'Specify the current version')
   .option('--apiurl <apiurl>', 'EHM API public URL')
   .option('--targetDir <targetDir>', 'Installation directory. default is /epiclabs23/eh/epic-backup')
+  .option('--newversion <newversion>', 'Specify the newversion to install')
   .action(updateEpicBackupCommand);
 
 // Handling Exit
