@@ -38,6 +38,12 @@ export const updateEpicBackupCommand = async (options) => {
         apiurl,
         targetDir
     };
+
+    // Backup current db file
+    const db_file = path.join(targetDir, currentVersion, 'epic-backup-api', 'dist', 'prisma', 'dev.db');
+    if (fs.existsSync(db_file)) {
+        fs.copyFileSync(db_file, path.join(targetDir, 'temp', 'dev.db'));
+    }
     
     await performEpicBackupUpdate(answers);
 };
