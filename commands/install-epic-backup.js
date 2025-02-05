@@ -12,7 +12,7 @@ export const installEpicBackupCommand = async (options) => {
     const apiurl = options.apiurl || await inquirer.prompt({
         type: 'input',
         name: 'apiurl',
-        message: 'Enter the Epic Backup API public URL (e.g., http://eb.epiclabs23.com:2333):',
+        message: 'Enter the Epic Backup API public URL (e.g., http://eb.epiclabs23.com:2330):',
         validate: input => input ? true : 'URL cannot be empty.'
     }).then(res => res.apiurl);
 

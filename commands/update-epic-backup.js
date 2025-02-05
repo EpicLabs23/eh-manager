@@ -29,7 +29,7 @@ export const updateEpicBackupCommand = async (options) => {
     const apiurl = options.apiurl || current_env_vars.EHM_API_PUBLIC_URL || await inquirer.prompt({
         type: 'input',
         name: 'apiurl',
-        message: 'Enter the API public URL (e.g., http://api.example.com:2333):',
+        message: 'Enter the API public URL (e.g., http://api.example.com:2330):',
         validate: input => input ? true : 'URL cannot be empty.'
     }).then(res => res.apiurl);
     
