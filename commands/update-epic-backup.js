@@ -26,7 +26,7 @@ export const updateEpicBackupCommand = async (options) => {
         message: 'Enter New version (e.g., 0.0.3):',
     }).then(res => res.version);
     
-    const apiurl = options.apiurl || current_env_vars.EHM_API_PUBLIC_URL || await inquirer.prompt({
+    const apiurl = options.apiurl || current_env_vars.API_PUBLIC_URL || await inquirer.prompt({
         type: 'input',
         name: 'apiurl',
         message: 'Enter the API public URL (e.g., http://api.example.com:2330):',
