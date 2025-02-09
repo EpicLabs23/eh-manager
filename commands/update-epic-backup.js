@@ -4,6 +4,7 @@ import path from 'path';
 import { performEpicBackupUpdate } from '../lib/epic-backup-updater.js';
 import inquirer from 'inquirer';
 import fs from 'fs';
+import { cp } from 'fs/promises';
 
 export const updateEpicBackupCommand = async (options) => {
     const config = new Conf({ projectName: 'eh_manager' });
@@ -59,7 +60,11 @@ export const updateEpicBackupCommand = async (options) => {
         const backup_uploads_dir = path.join(targetDir, 'temp', 'files');
         if (fs.existsSync(uploads_dir)) {
             fs.mkdirSync(backup_uploads_dir, { recursive: true });
-            fs.copySync(uploads_dir, backup_uploads_dir);
+            await cp(uploads_dir, backup_uploads_dir, { recursive: true }, (err) => {
+                if (err) {
+                    console.error(err);
+                }
+            });
         }
 
         // Update
