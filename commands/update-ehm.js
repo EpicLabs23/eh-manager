@@ -19,6 +19,7 @@ export const updateEhmCommand = async (options) => {
   const mysqlRootPassword = options.dbpass || current_env_vars.MYSQL_ROOT_PASSWORD || await getMysqlRootPassword().then(res => res.mysqlRootPassword);
   const apiPublicUrl = options.apiurl || current_env_vars.EHM_API_PUBLIC_URL || await getApiPublicUrl().then(res => res.apiPublicUrl);
   const os = options.os || await getPromptOsVersion().then(res => res.osVersion);
+
   const answers = {
     currentVersion,
     newVersion,
