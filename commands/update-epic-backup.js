@@ -1,7 +1,9 @@
 import Conf from 'conf';
 import dotenv from 'dotenv';
 import path from 'path';
+import chalk from 'chalk';
 import { performEpicBackupUpdate } from '../lib/epic-backup-updater.js';
+import { getNewEpicBackupVersion, getCurrentEpicBackupVersion } from '../lib/prompts.js';
 import inquirer from 'inquirer';
 import fs from 'fs';
 import { cp } from 'fs/promises';
@@ -11,11 +13,8 @@ export const updateEpicBackupCommand = async (options) => {
     const targetDir = options.targetDir || '/epiclabs23/eh/epic-backup';
     const current_epic_backup_version = config.get('current_epic_backup_version');
 
-    const currentVersion = options.currentversion || current_epic_backup_version || await inquirer.prompt({
-        type: 'input',
-        name: 'version',
-        message: 'Enter current version (e.g., 0.0.3):',
-    }).then(res => res.version);
+    const currentVersion = options.currentversion || current_epic_backup_version || await getCurrentEpicBackupVersion().then(res => res.version);
+    console.log(chalk.cyan(`Current Epic Backup version: ${currentVersion}`));
 
     try {
         // Read current env file
@@ -27,11 +26,7 @@ export const updateEpicBackupCommand = async (options) => {
             current_env_vars = current_env.parsed;
         }
 
-        const newVersion = options.newversion || await inquirer.prompt({
-            type: 'input',
-            name: 'version',
-            message: 'Enter New version (e.g., 0.0.3):',
-        }).then(res => res.version);
+        const newVersion = options.newversion || await getNewEpicBackupVersion().then(res => res.version);
 
         const apiurl = options.apiurl || current_env_vars.API_PUBLIC_URL || await inquirer.prompt({
             type: 'input',

@@ -1,13 +1,10 @@
 import { performEpicBackupInstall } from '../lib/epic-backup-installer.js';
 import { installEpicBackupSystemDependecy } from './install-epic-backup-system-dependecy.js';
+import { getInstallEpicBackupVersion } from '../lib/prompts.js';
 import inquirer from 'inquirer';
 
 export const installEpicBackupCommand = async (options) => {
-    const version = options.version ? options.version : await inquirer.prompt({
-        type: 'input',
-        name: 'version',
-        message: 'Enter Epic Backup version (e.g., 0.0.3):',
-    }).then(res => res.version);
+    const version = options.version ? options.version : await getInstallEpicBackupVersion().then(res => res.version);
     
     const apiurl = options.apiurl || await inquirer.prompt({
         type: 'input',
