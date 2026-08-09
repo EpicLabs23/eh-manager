@@ -20,6 +20,7 @@ program
   .option('--dbpass <dbpass>', 'MySQL root password')
   .option('--apiurl <apiurl>', 'EHM API public URL')
   .option('--os <os>', 'System Ubuntu version (e.g., 24.04)')
+  .option('--influx <enabled>', 'Enable InfluxDB metrics history (true/false)')
   .action(installEhmCommand);
 
 program
@@ -30,6 +31,7 @@ program
   .option('--dbpass <dbpass>', 'MySQL root password')
   .option('--apiurl <apiurl>', 'EHM API public URL')
   .option('--os <os>', 'System Ubuntu version (e.g., 24.04)')
+  .option('--influx <enabled>', 'Enable InfluxDB metrics history (true/false)')
   .action(updateEhmCommand);
 
 // Epic Backup Commands

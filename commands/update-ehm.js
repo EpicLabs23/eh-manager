@@ -2,7 +2,7 @@ import { performEhmUpdate } from '../lib/ehm-updater.js';
 import Conf from 'conf';
 import dotenv from 'dotenv';
 import path from 'path';
-import { getNewVersion, getCurrentVersion, getPromptOsVersion, getMysqlRootPassword, getApiPublicUrl } from '../lib/prompts.js';
+import { getNewVersion, getCurrentVersion, getPromptOsVersion, getMysqlRootPassword, getApiPublicUrl, getInfluxEnabled } from '../lib/prompts.js';
 
 export const updateEhmCommand = async (options) => {
   const config = new Conf({ projectName: 'eh_manager' });
@@ -19,13 +19,17 @@ export const updateEhmCommand = async (options) => {
   const mysqlRootPassword = options.dbpass || current_env_vars.MYSQL_ROOT_PASSWORD || await getMysqlRootPassword().then(res => res.mysqlRootPassword);
   const apiPublicUrl = options.apiurl || current_env_vars.EHM_API_PUBLIC_URL || await getApiPublicUrl().then(res => res.apiPublicUrl);
   const os = options.os || await getPromptOsVersion().then(res => res.osVersion);
+  const influxEnabled = options.influx !== undefined
+    ? options.influx === 'true'
+    : await getInfluxEnabled(current_env_vars.INFLUX_METRICS_ENABLED === 'true').then(res => res.influxEnabled);
 
   const answers = {
     currentVersion,
     newVersion,
     mysqlRootPassword,
     apiPublicUrl,
-    os
+    os,
+    influxEnabled
   };
 
   await performEhmUpdate(answers);
