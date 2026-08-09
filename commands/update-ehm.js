@@ -25,6 +25,10 @@ export const updateEhmCommand = async (options) => {
   // Carried forward as-is (never prompted/regenerated) — secrets encrypted with the
   // old key would become undecryptable if it changed on update.
   const encryptionKey = current_env_vars.EHM_ENCRYPTION_KEY || '';
+  // Carried forward as-is — the 'influxdb' container only allows one admin
+  // token ("_admin") to exist, so re-creating it on every update 409s once
+  // it's already been created.
+  const influxToken = current_env_vars.INFLUXDB_TOKEN || '';
 
   const answers = {
     currentVersion,
@@ -33,7 +37,8 @@ export const updateEhmCommand = async (options) => {
     apiPublicUrl,
     os,
     influxEnabled,
-    encryptionKey
+    encryptionKey,
+    influxToken
   };
 
   await performEhmUpdate(answers);
