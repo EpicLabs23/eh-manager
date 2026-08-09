@@ -14,7 +14,8 @@ export const installEhmCommand = async (options) => {
         mysqlRootPassword,
         apiPublicUrl,
         os,
-        influxEnabled
+        influxEnabled,
+        encryptionKey: '' // fresh install: let the update script generate a new one
     };
 
     await performEhmInstall(answers);

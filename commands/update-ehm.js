@@ -22,6 +22,9 @@ export const updateEhmCommand = async (options) => {
   const influxEnabled = options.influx !== undefined
     ? options.influx === 'true'
     : await getInfluxEnabled(current_env_vars.INFLUX_METRICS_ENABLED === 'true').then(res => res.influxEnabled);
+  // Carried forward as-is (never prompted/regenerated) — secrets encrypted with the
+  // old key would become undecryptable if it changed on update.
+  const encryptionKey = current_env_vars.EHM_ENCRYPTION_KEY || '';
 
   const answers = {
     currentVersion,
@@ -29,7 +32,8 @@ export const updateEhmCommand = async (options) => {
     mysqlRootPassword,
     apiPublicUrl,
     os,
-    influxEnabled
+    influxEnabled,
+    encryptionKey
   };
 
   await performEhmUpdate(answers);
