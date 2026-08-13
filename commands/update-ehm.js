@@ -2,7 +2,7 @@ import { performEhmUpdate } from '../lib/ehm-updater.js';
 import Conf from 'conf';
 import dotenv from 'dotenv';
 import path from 'path';
-import { getNewVersion, getCurrentVersion, getPromptOsVersion, getMysqlRootPassword, getApiPublicUrl, getInfluxEnabled } from '../lib/prompts.js';
+import { getNewVersion, getCurrentVersion, getPromptOsVersion, getMysqlRootPassword } from '../lib/prompts.js';
 
 export const updateEhmCommand = async (options) => {
   const config = new Conf({ projectName: 'eh_manager' });
@@ -17,11 +17,13 @@ export const updateEhmCommand = async (options) => {
 
   const newVersion = options.newversion || await getNewVersion().then(res => res.version);
   const mysqlRootPassword = options.dbpass || current_env_vars.MYSQL_ROOT_PASSWORD || await getMysqlRootPassword().then(res => res.mysqlRootPassword);
-  const apiPublicUrl = options.apiurl || current_env_vars.EHM_API_PUBLIC_URL || await getApiPublicUrl().then(res => res.apiPublicUrl);
+  // Carried forward as-is (never prompted) — if missing, fix manually after the update.
+  const apiPublicUrl = options.apiurl || current_env_vars.EHM_API_PUBLIC_URL || '';
   const os = options.os || await getPromptOsVersion().then(res => res.osVersion);
+  // Carried forward as-is (never prompted) — see apiPublicUrl above.
   const influxEnabled = options.influx !== undefined
     ? options.influx === 'true'
-    : await getInfluxEnabled(current_env_vars.INFLUX_METRICS_ENABLED === 'true').then(res => res.influxEnabled);
+    : current_env_vars.INFLUX_METRICS_ENABLED === 'true';
   // Carried forward as-is (never prompted/regenerated) — secrets encrypted with the
   // old key would become undecryptable if it changed on update.
   const encryptionKey = current_env_vars.EHM_ENCRYPTION_KEY || '';
