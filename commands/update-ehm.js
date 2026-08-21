@@ -31,6 +31,10 @@ export const updateEhmCommand = async (options) => {
   // token ("_admin") to exist, so re-creating it on every update 409s once
   // it's already been created.
   const influxToken = current_env_vars.INFLUXDB_TOKEN || '';
+  // Carried forward as-is (never prompted) — see apiPublicUrl above. Falls
+  // back to false (not true) when there's nothing to carry, e.g. updating
+  // from a pre-1.1.4 .env that never had this key.
+  const hostMetricsEnabled = current_env_vars.HOST_METRICS_ENABLED === 'true';
 
   const answers = {
     currentVersion,
@@ -40,7 +44,8 @@ export const updateEhmCommand = async (options) => {
     os,
     influxEnabled,
     encryptionKey,
-    influxToken
+    influxToken,
+    hostMetricsEnabled
   };
 
   await performEhmUpdate(answers);
